@@ -1,8 +1,8 @@
 import { IUploadFileReq, UseCaseStructure } from '../structure/useCase.structure';
-import fs from 'fs';
 import path from 'path';
 import { injectable } from 'tsyringe';
-import { diskStorage } from 'multer';
+import fs from 'fs';
+import { concatMap } from 'rxjs';
 
 interface IGrid {
   data?: string;
@@ -16,6 +16,8 @@ interface IGrid {
 @injectable()
 export class UploadFileUseCase extends UseCaseStructure<IUploadFileReq, any> {
   async execute(data: IUploadFileReq) {
+    const errorPut = fs.createWriteStream('./log/races.log');
+
     try {
       const filename = path.join(__dirname + `../../../../../files/${data.fileName}`);
 
@@ -63,8 +65,40 @@ export class UploadFileUseCase extends UseCaseStructure<IUploadFileReq, any> {
 
         data_.veloMedia = linhanova6;
 
-        grid.push(data_);
+        if (data_.voltas !== '') {
+          grid.push(data_);
+        }
       });
+
+      const inicio = grid[1];
+      const fim = grid[grid.length - 1];
+
+      const a = new Date('2022-02-19T' + inicio.data).getTime();
+      const b = new Date('2022-02-19T' + fim.data).getTime();
+
+      const milg = a - b;
+      const second = milg / 1000;
+      const mint = second / 60;
+
+      const tempoTotaldeProva = Math.abs(Math.trunc(mint));
+
+      const final = grid.filter((linha) => linha.voltas === '4');
+
+      final.sort((a, b) => {
+        const tempoa = a.tempoDeVolta?.split(':').join('') || 0;
+        const tempob = b.tempoDeVolta?.split(':').join('') || 0;
+
+        if (tempoa < tempob) {
+          return -1;
+        }
+
+        return 0;
+      });
+
+      return {
+        tempo_da_corrida_em_minutos: tempoTotaldeProva,
+        grid: final,
+      };
 
       grid.sort((a, b) => Number(b.voltas) - Number(a.voltas));
 
@@ -99,7 +133,9 @@ export class UploadFileUseCase extends UseCaseStructure<IUploadFileReq, any> {
         return 0;
       });
 
-      console.log(rs);
+      await fs.writeFileSync('./log/races.log', JSON.stringify(rs));
+      const aqruivo = await fs.readFileSync('./log/races.log', 'utf-8');
+      return JSON.parse(aqruivo);
     } catch (error) {
       console.log(error);
     }
