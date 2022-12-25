@@ -8,8 +8,7 @@ import fs from 'fs';
 import path from 'path';
 import { injectable } from 'tsyringe';
 import DifferenceBetweenMinutesDateFormart from '../../../common/date-formart/difference-between-minutes.date-formart';
-import * as timers from 'timers';
-import { isLowercase } from 'class-validator';
+import { readableStreamLikeToAsyncGenerator } from 'rxjs/dist/types/internal/util/isReadableStreamLike';
 
 @injectable()
 export class CalculateResultUseCases extends UseCaseStructure<IUploadFileReq, ICalculateResultRes> {
@@ -30,6 +29,8 @@ export class CalculateResultUseCases extends UseCaseStructure<IUploadFileReq, IC
 
       let laps: Partial<ILogKart>[];
 
+      console.log(data.orderLaps);
+
       switch (data.orderLaps) {
         case 'every_lap':
           laps = this.sortAllList(result);
@@ -39,18 +40,72 @@ export class CalculateResultUseCases extends UseCaseStructure<IUploadFileReq, IC
           break;
       }
 
+      const best_laps_by_pilot = this.calculateBestLap(result);
+
       return {
         classification: laps,
-        best_race_lap: '',
+        best_laps_by_pilot: best_laps_by_pilot,
         duration_of_run_in_minutes: minutes,
+        best_race_lap: best_laps_by_pilot[0],
       };
     } catch (e) {
       console.log(e);
     }
   }
 
+  /**
+   * @description Essa função retorna a melhor volta de cada piloto.
+   * @return volta um array com o tempo da melhor volta de cada piloto.
+   */
+  private calculateBestLap(values: Partial<ILogKart>[]): Partial<ILogKart>[] {
+    let pilot_name: Partial<ILogKart>[] = [];
+
+    /**
+     * Primeiro ordenamos o array em ordem CRECENTE pelo tempo de volta. Então as voltas mais rapidas ficarão em primeiro.
+     */
+    const a = values.sort((a, b) => {
+      const time_a = a.lap_time?.split(':').join('') || 0;
+      const time_b = b.lap_time?.split(':').join('') || 0;
+
+      if (time_a < time_b) {
+        return -1;
+      }
+
+      return 0;
+    });
+
+    /**
+     *  Depois de termos  ordenado o array em ordem crecendo pelo tempo de volta, agora vamos interar array adicionando
+     *  o nome dos pilotos com a volta dele em um novo array.
+     *
+     *  @description Por conta do array ja esta ordenado pelas melhores voltas, não precisamos ficar olhando volta por volta de cada piloto,
+     *  pois as melhores voltas vão esta em primeiro.
+     */
+    for (let i = 0; a.length > i; ++i) {
+      const nameExists = pilot_name.find((name) => name.name === values[i].name);
+
+      if (!nameExists) {
+        pilot_name.push({ name: values[i].name, lap_time: a[i].lap_time });
+      }
+    }
+
+    return pilot_name;
+  }
+
+  /**
+   * @param values
+   * @private
+   * @description Essa funcão retorna o grid de chegada dos pilotos, em ordem de quem chegou primeiro.
+   */
   private sortFinalists(values: Partial<ILogKart>[]): Partial<ILogKart>[] {
+    /**
+     * primeiros pegamos todos os pilotos que completou as 4 voltas.
+     */
     const pilots = values.filter((pilot) => pilot.laps === '4');
+    /**
+     * Agora ordernamos o array de pilotos por tempo de volta, assim conseguimos ver quem completou a quarta volta no
+     * menor tempo.
+     */
     return pilots.sort((a, b) => {
       const time_a = a.lap_time?.split(':').join('') || 0;
       const time_b = b.lap_time?.split(':').join('') || 0;
@@ -63,8 +118,18 @@ export class CalculateResultUseCases extends UseCaseStructure<IUploadFileReq, IC
     });
   }
 
+  /**
+   * @param values
+   * @private
+   * @description Essa função ordena todo o arquivo sem ignora os valores repeditos. Ela ordena todas as voltas dos piltos pelo menor tempo de volta é
+   * também por numero de voltas.
+   */
   private sortAllList(values: Partial<ILogKart>[]): Partial<ILogKart>[] {
+    /**
+     * Ordenando pelo numero de voltas
+     */
     values.sort((a, b) => Number(b.laps) - Number(a.laps));
+    // ordenando pelo numero de voltas é tbm por tempo de volta.
     return values.sort((a, b) => {
       const time_a = a.lap_time?.split(':').join('') || 0;
       const time_b = b.lap_time?.split(':').join('') || 0;
@@ -96,13 +161,22 @@ export class CalculateResultUseCases extends UseCaseStructure<IUploadFileReq, IC
       return 0;
     });
   }
+
+  /**
+   * @param values
+   * @private
+   * @description Transformando todos os registros do ARQUIVO .TXT para um array em memoria.
+   */
   private formartValues(values: string[]): Partial<ILogKart>[] {
     const formatted_log: Partial<ILogKart>[] = [];
 
-    values.forEach((value: string) => {
+    /**
+     * Iterando linha por linha do arquivo .TXT
+     */
+    values.forEach((linha: string) => {
       let result: Partial<ILogKart> = {};
 
-      let formatted_file_line = value.split(/\s+/).join(`|`);
+      let formatted_file_line = linha.split(/\s+/).join(`|`);
       let size_file_line = formatted_file_line.length;
       let new_line = formatted_file_line.substring(13, size_file_line);
 

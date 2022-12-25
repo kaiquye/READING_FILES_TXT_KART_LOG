@@ -21,6 +21,7 @@ export interface ILogKart {
 }
 
 export interface ICalculateResultRes {
+  best_laps_by_pilot: Partial<ILogKart>[] | any;
   duration_of_run_in_minutes?: number | string;
   best_race_lap: string | number;
   classification?: Partial<ILogKart>[] | any;
