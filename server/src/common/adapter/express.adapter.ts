@@ -1,4 +1,4 @@
-import { constructor } from 'tsyringe/dist/typings/types';
+import { NextFunction, Request, Response } from 'express';
 
 export interface IHttpResponse {
   status?: number;
@@ -6,9 +6,10 @@ export interface IHttpResponse {
   cookies?: { name: string; value: string };
 }
 
-export type IController = (body, params?, next?) => Promise<IHttpResponse>;
+export type IController = (body: object, params?: object, next?: NextFunction) => Promise<IHttpResponse>;
 export function ExpressAdapter(controller: IController) {
-  return async function (req, res) {
+  return async function (req: Request, res: Response) {
+    req.body.file = req.file;
     const body = req?.body;
     const params = req?.params;
 

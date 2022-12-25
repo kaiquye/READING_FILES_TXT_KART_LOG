@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import raceRoutes from '../../modules/cart/infra/http/routes/files.routes';
+import kartRoutes from '../../modules/kart/infra/http/routes/files.routes';
 
 const applicationRoutesRoutes = Router();
 
-applicationRoutesRoutes.use('/cart', raceRoutes);
+applicationRoutesRoutes.use('/kart', kartRoutes);
 export default applicationRoutesRoutes;

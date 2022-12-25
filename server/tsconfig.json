@@ -7,7 +7,7 @@
     "esModuleInterop": true,
     // Target latest version of ECMAScript.
     "target": "ES2021",
-    // Process & infer types from .js cart.
+    // Process & infer types from .js kart.
     "allowJs": false,
     // Enable strictNullChecks & noImplicitAny.
     "strictNullChecks": true,
@@ -17,7 +17,7 @@
     "noImplicitThis": false,
     // Search under node_modules for non-relative imports.
     "moduleResolution": "node",
-    // Import .json cart
+    // Import .json kart
     "resolveJsonModule": true,
     "sourceMap": true,
     "outDir": "build",
