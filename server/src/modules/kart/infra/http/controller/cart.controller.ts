@@ -7,7 +7,7 @@ import { UploadLogKartDto } from '../../../dto/upload-log-kart.dto';
 class cartController {
   async uploadFIle(body: UploadLogKartDto): Promise<IHttpResponse> {
     const useCase = container.resolve(CalculateResultUseCases);
-
+    console.log(body);
     const data = {
       fileName: body.file?.filename || '',
       typeFile: body.file?.fieldname || '',

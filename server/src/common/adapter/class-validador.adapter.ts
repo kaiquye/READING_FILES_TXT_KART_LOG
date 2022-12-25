@@ -1,9 +1,11 @@
+import { NextFunction, Response, Request } from 'express';
+
 export interface IDto {
-  validate();
+  validate(): any;
 }
 
 export function ValidateTransferObject(DTO: IDto | any, path: 'BODY' | 'PARAMS') {
-  return async function (req, res, next) {
+  return async function (req: Request, res: Response, next: NextFunction) {
     try {
       let result;
       let error;

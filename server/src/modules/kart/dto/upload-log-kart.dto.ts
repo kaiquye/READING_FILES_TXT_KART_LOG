@@ -3,11 +3,10 @@ import { IsIn, IsNotEmpty, validateOrReject } from 'class-validator';
 import { orderLaps } from '../structure/useCase.structure';
 
 export class UploadLogKartDto implements IDto {
-  @IsNotEmpty()
   file: object | any;
 
   @IsIn(['last_laps', 'every_lap'])
-  orderLaps: orderLaps;
+  orderLaps: orderLaps = 'last_laps';
 
   public validate() {
     return validateOrReject(this);
