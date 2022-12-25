@@ -1,6 +1,6 @@
 import { IDto } from '../../../common/adapter/class-validador.adapter';
 import { IsIn, IsNotEmpty, validateOrReject } from 'class-validator';
-import { orderLaps } from '../structure/useCase.structure';
+import { orderLaps } from '../interfaces/useCase.structure';
 
 export class UploadLogKartDto implements IDto {
   file: object | any;
