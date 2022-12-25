@@ -1,14 +1,13 @@
+import fs from 'fs';
+import path from 'path';
+import { injectable } from 'tsyringe';
+import DifferenceBetweenMinutesDateFormart from '../../../common/date-formart/difference-between-minutes.date-formart';
 import {
   ICalculateResultRes,
   ILogKart,
   IUploadFileReq,
   UseCaseStructure,
-} from '../structure/useCase.structure';
-import fs from 'fs';
-import path from 'path';
-import { injectable } from 'tsyringe';
-import DifferenceBetweenMinutesDateFormart from '../../../common/date-formart/difference-between-minutes.date-formart';
-import { readableStreamLikeToAsyncGenerator } from 'rxjs/dist/types/internal/util/isReadableStreamLike';
+} from '../interfaces/useCase.structure';
 
 @injectable()
 export class CalculateResultUseCases extends UseCaseStructure<IUploadFileReq, ICalculateResultRes> {

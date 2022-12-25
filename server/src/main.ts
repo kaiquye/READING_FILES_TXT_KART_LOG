@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import express from 'express';
 import * as dotenv from 'dotenv';
-import applicationRoutesRoutes from './infrastructure/routes/applicationRoutes.routes';
+import applicationRoutesRoutes from './shared/routes/applicationRoutes.routes';
 const log = console.log;
 const application = () => {
   dotenv.config();
