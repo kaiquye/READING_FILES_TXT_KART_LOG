@@ -4,6 +4,7 @@ import crypto from 'crypto';
 export const storage = multer.diskStorage({
   destination: 'files',
   filename(req: any, file, callback) {
+    console.log(file);
     const typeFile = file.originalname.split('.')[1];
 
     const nameFile = crypto.randomBytes(64).toString('hex');
