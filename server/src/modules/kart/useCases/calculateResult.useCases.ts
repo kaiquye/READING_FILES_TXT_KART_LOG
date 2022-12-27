@@ -53,7 +53,7 @@ export class CalculateResultUseCases extends UseCaseStructure<IUploadFileReq, IC
   }
 
   /**
-   * @description Essa função retorna a melhor volta de cada piloto.
+   * @description This function returns the best lap for each driver.
    * @return volta um array com o tempo da melhor volta de cada piloto.
    */
   private calculateBestLap(values: Partial<ILogKart>[]): Partial<ILogKart>[] {
