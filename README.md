@@ -1,5 +1,5 @@
 <p align="center" >
-     Calculando tempo de volta.
+     Calculando tempo de volta. 
 </p>
 
 
@@ -7,7 +7,12 @@
    <img width=400 src='https://user-images.githubusercontent.com/69175890/209719501-a09ae191-1d4f-4b24-8705-5969b2fcc71f.png'/>
 </p>
 
- ### 📣  Desafio copiado de um repositorio com testes tecnicos para desenvolvedores back-end de nivel Pleno. 
+ ### 📣  Desafio copiado de um repositorio com testes tecnicos para desenvolvedores back-end de nivel Pleno.
+ <p align="center" >
+    🟨 Projeto para estudo pessoal 🟨
+</p>
+
+#
  
 [Gravação de tela de 27-12-2022 15:42:38.webm](https://user-images.githubusercontent.com/69175890/209720425-62864885-a754-48b8-b378-10073e0db9fc.webm)
 
