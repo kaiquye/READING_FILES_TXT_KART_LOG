@@ -60,7 +60,8 @@ export class CalculateResultUseCases extends UseCaseStructure<IUploadFileReq, IC
     let pilot_name: Partial<ILogKart>[] = [];
 
     /**
-     * Primeiro ordenamos o array em ordem CRECENTE pelo tempo de volta. Então as voltas mais rapidas ficarão em primeiro.
+     * First sort the array in INCREASING order by lap time. 
+     * So the fastest laps will be first.
      */
     const a = values.sort((a, b) => {
       const time_a = a.lap_time?.split(':').join('') || 0;
