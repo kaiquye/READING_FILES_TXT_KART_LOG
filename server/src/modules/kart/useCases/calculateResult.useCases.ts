@@ -78,8 +78,8 @@ export class CalculateResultUseCases extends UseCaseStructure<IUploadFileReq, IC
      *  Now let's iterate array by adding
      * the name of the pilots with his lap in a new array.
      *
-     *  @description Por conta do array ja esta ordenado pelas melhores voltas, não precisamos ficar olhando volta por volta de cada piloto,
-     *  pois as melhores voltas vão esta em primeiro.
+     *  @description Because the array is already sorted by the best laps, we don't need to keep looking around each driver,
+     *  because the best laps go first.
      */
     for (let i = 0; a.length > i; ++i) {
       const nameExists = pilot_name.find((name) => name.name === values[i].name);
