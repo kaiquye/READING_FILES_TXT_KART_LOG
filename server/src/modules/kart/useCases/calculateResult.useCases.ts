@@ -95,16 +95,16 @@ export class CalculateResultUseCases extends UseCaseStructure<IUploadFileReq, IC
   /**
    * @param values
    * @private
-   * @description Essa funcão retorna o grid de chegada dos pilotos, em ordem de quem chegou primeiro.
+   * @description This function returns the drivers' arrival grid, in order of who arrived first.
    */
   private sortFinalists(values: Partial<ILogKart>[]): Partial<ILogKart>[] {
     /**
-     * primeiros pegamos todos os pilotos que completou as 4 voltas.
+     * first we caught all the riders who completed the 4 laps.
      */
     const pilots = values.filter((pilot) => pilot.laps === '4');
     /**
-     * Agora ordernamos o array de pilotos por tempo de volta, assim conseguimos ver quem completou a quarta volta no
-     * menor tempo.
+     * Now we sort the array of drivers by lap time, so we can see who completed the fourth lap in the
+     * shorter time.
      */
     return pilots.sort((a, b) => {
       const time_a = a.lap_time?.split(':').join('') || 0;
@@ -121,8 +121,8 @@ export class CalculateResultUseCases extends UseCaseStructure<IUploadFileReq, IC
   /**
    * @param values
    * @private
-   * @description Essa função ordena todo o arquivo sem ignora os valores repeditos. Ela ordena todas as voltas dos piltos pelo menor tempo de volta é
-   * também por numero de voltas.
+   * @description This function sorts the entire file without ignoring repeated values. It orders all riders' laps by the shortest lap time is
+   * also by number of laps.
    */
   private sortAllList(values: Partial<ILogKart>[]): Partial<ILogKart>[] {
     /**
