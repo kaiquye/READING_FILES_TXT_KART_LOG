@@ -75,7 +75,7 @@ export class CalculateResultUseCases extends UseCaseStructure<IUploadFileReq, IC
     });
 
     /**
-     *  Agora vamos interar array adicionando
+     *  Now let's iterate array by adding
      *  o nome dos pilotos com a volta dele em um novo array.
      *
      *  @description Por conta do array ja esta ordenado pelas melhores voltas, não precisamos ficar olhando volta por volta de cada piloto,
