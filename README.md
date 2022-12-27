@@ -53,7 +53,7 @@ Hora                               Piloto             Nº Volta   Tempo Volta   
 - A primeira linha do arquivo pode ser desconsiderada (Hora, Piloto, Nº Volta, Tempo Volta, Velocidade média da volta).
 - A corrida termina quando o primeiro colocado completo 4 voltas
 
-# Bônus ❗
+## Objetivos ❗
 - Não obrigatório. Faça o caso se identificar apenas com o problema ou achar que há algo interessante a ser mostrado na solução
 
 *  ✅ Descobrir a melhor volta de cada piloto
