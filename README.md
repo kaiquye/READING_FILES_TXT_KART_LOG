@@ -7,7 +7,7 @@
    <img width=400 src='https://user-images.githubusercontent.com/69175890/209719501-a09ae191-1d4f-4b24-8705-5969b2fcc71f.png'/>
 </p>
 
- ### 📣  Desafio copiado de um repositorio com testes tecnicos para desenvolvedores back-end de nivel Pleno.
+ ### 📣  Desafio copiado de um repositorio com testes técnicos para desenvolvedores back-end de nivel Pleno.
  <p align="center" >
     🟨 Projeto para estudo pessoal 🟨
 </p>
