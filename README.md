@@ -11,10 +11,6 @@
     🟨 Projeto para estudo pessoal 🟨
 </p>
 
- <p align="center" >
-   📣  Desafio copiado de um repositorio com testes técnicos para desenvolvedores back-end de nivel Pleno.
-</p>
-
 #
  
 [Gravação de tela de 27-12-2022 15:42:38.webm](https://user-images.githubusercontent.com/69175890/209720425-62864885-a754-48b8-b378-10073e0db9fc.webm)
